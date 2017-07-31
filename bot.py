@@ -8,12 +8,26 @@ credentials = {"email" : "",
         "password" : "",
         }
 
+# Get maximume lenght matching quote string
+def gmlmqs(string):
+    q1 = 0
+    q2 = len(string) - 1
+    for q1 in range(q1, len(string)):
+        if string[q1] is "\"":
+            break
+    for q2 in range(q2, q1 -1, -1):
+        if string[q2] is "\"":
+            break
+
 #WARNING: this needs to use OS.PATH!
 def get_credentials():
     with open("cred/email.txt", 'r') as email_f:
-        #Get the email with regualar expressions
+        txt = email_f.read()
+        credentials["email"] = gmlmqs(txt)
+
     with open("cred/pass.txt", 'r') as password_f:
-        #Get the password with regular expressions
+        txt = password_f.read()
+        credentials["password"] = gmlmqs(txt)
 
 bot = commands.Bot(command_prefix = '@', description = description)
 

@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import json
+import asyncio
 
 description = "```A self bot with a lot of utility commands and functionality. Mainly trying to not attract attetion of your fellow chatters```"
 
@@ -30,16 +31,23 @@ def get_credentials():
         txt = password_f.read()
         credentials["password"] = _gmlmqs_(txt)
 
-bot = commands.Bot(command_prefix = '@', description = description)
+bot = commands.Bot(command_prefix = '^~^', description = description)
 
 
 @bot.event
-async def on_read():
-    user_name = bot.user.name.encode("utf8")
+async def on_ready():
+    user_name = bot.user.name.encode("ascii").decode("ascii")
     print("Logged in as")
     print(user_name)
     print(bot.user.id)
 
+async def status_upkeep_task():
+    await bot.wait_until_ready()
+    while not bot.is_closed:
+        await bot.change_presence(game=discord.Game(name="Discord is using me :("), status=discord.Status.dnd)
+        await asyncio.sleep(10)
+
+
 get_credentials()
-print(credentials)
+bot.loop.create_task(status_upkeep_task())
 bot.run(credentials["email"], credentials["password"])

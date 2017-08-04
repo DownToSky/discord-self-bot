@@ -1,7 +1,13 @@
 import discord
 from discord.ext import commands
+from elizabeth_the_third.add_text import elizabeth_cat
 import json
 import asyncio
+import os
+
+CRED_PATH = os.path.abspath("cred")
+EMAIL_PATH = os.path.join(CRED_PATH, "email.txt")
+PASS_PATH = os.path.join(CRED_PATH, "pass.txt")
 
 description = "```A self bot with a lot of utility commands and functionality. Mainly trying to not attract attetion of your fellow chatters```"
 
@@ -32,6 +38,14 @@ def get_credentials():
         credentials["password"] = _gmlmqs_(txt)
 
 bot = commands.Bot(command_prefix = '^~^', description = description)
+bot.elizabeth = elizabeth_cat()
+
+@bot.command(name = "elizabeth", pass_context=True, no_pm=True)
+async def send_elizabeth_message(ctx, ID:str, *, msg:str):
+    if ctx.message.channel.id is "343159135082250243":
+        all_channels = [ch for ch in bot.servers]
+        dest = discord.utils.get(all_channels, id=ID)
+        await bot.send_message(ctx.message.channel, "boo")
 
 
 @bot.event

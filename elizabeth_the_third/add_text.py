@@ -4,11 +4,13 @@ from PIL import ImageFont, ImageDraw, Image
 
 class elizabeth_cat():
     def __init__(self):
-        self.folder_path = os.path.abspath("pictures/")
+        self.folder_path = os.path.abspath("elizabeth_the_third/pictures/")
 
         # making a list of all images paths
         self.pictures = list()
-        for file in os.listdir(self.folder_path):
+        print(os.path.isdir(self.folder_path))
+        directory = os.listdir(self.folder_path)
+        for file in directory:
             if file.endswith(".png"):
                 abs_file_path = os.path.join(self.folder_path, file)
                 self.pictures.append( [file, abs_file_path, dict()] )

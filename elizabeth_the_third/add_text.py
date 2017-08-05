@@ -5,10 +5,10 @@ from PIL import ImageFont, ImageDraw, Image
 class elizabeth_cat():
     def __init__(self):
         self.folder_path = os.path.abspath("elizabeth_the_third/pictures/")
-
+        self.font_path = os.path.abspath("elizabeth_the_third/fonts/")
+        
         # making a list of all images paths
         self.pictures = list()
-        print(os.path.isdir(self.folder_path))
         directory = os.listdir(self.folder_path)
         for file in directory:
             if file.endswith(".png"):
@@ -36,13 +36,14 @@ class elizabeth_cat():
         textbox_height = pic[2]["h2"] - pic[2]["h1"]
 
         # picking the font and the best font size
-        font = ImageFont.load("arial.pil", fontsize)
+        fontfile = os.path.join(self.font_path,"arial.ttf")
+        font = ImageFont.truetype(fontfile, fontsize)
         while font.getsize(text)[0] <= textbox_width \
             and font.getsize(text)[1] <= textbox_height:
             fontsize += 1
-            font = ImageFont.truetype("arial.ttf", fontsize)
+            font = ImageFont.truetype(fontfile, fontsize)
         fontsize -= 1
-        font = ImageFont.truetype("arial.ttf", fontsize)
+        font = ImageFont.truetype(fontfile, fontsize)
 
         # forcing text to start in the middle of the box
         starting_height = (pic[2]["h2"]+ pic[2]["h1"]- font.getsize(text)[1])/2

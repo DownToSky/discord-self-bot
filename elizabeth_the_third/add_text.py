@@ -1,12 +1,13 @@
 import os
 import json
 from PIL import ImageFont, ImageDraw, Image
+import random
 
 class elizabeth_cat():
     def __init__(self):
         self.folder_path = os.path.abspath("elizabeth_the_third/pictures/")
         self.font_path = os.path.abspath("elizabeth_the_third/fonts/")
-        
+
         # making a list of all images paths
         self.pictures = list()
         directory = os.listdir(self.folder_path)
@@ -26,7 +27,9 @@ class elizabeth_cat():
 
 
     def create_text(self, image_number, text, random = False):
-        pic = self.pictures[image_number % len(self.pictures)]
+        pic = self.pictures(random.randint(0, len(self.pictures)))
+        if random == False:
+            pic = self.pictures[image_number % len(self.pictures)]
         image = Image.open(pic[1])
         draw = ImageDraw.Draw(image)
         fontsize = 1
@@ -51,12 +54,12 @@ class elizabeth_cat():
         txt_colour = (77, 195, 255, 255)
         draw.text((starting_width, starting_height), text, font=font, fill = txt_colour)
 
-        image.save('tmp.png')
+        image.save(os.path.abspath('elizabeth_the_third/tmp.png'))
 
 
 
 
     def delete_tmp(self):
-        tmp_path = os.path.join(os.path.abspath("tmp.png"))
+        tmp_path = os.path.join(os.path.abspath("elizabeth_the_third/tmp.png"))
         if os.path.isfile(tmp_path):
             os.remove(tmp_path)

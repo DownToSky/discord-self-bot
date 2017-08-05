@@ -37,15 +37,23 @@ def get_credentials():
         txt = password_f.read()
         credentials["password"] = _gmlmqs_(txt)
 
-bot = commands.Bot(command_prefix = '^~^', description = description)
-bot.elizabeth = elizabeth_cat()
+bot = commands.Bot(command_prefix = '%', description = description,
+        self_bot=True)
+bot.cat = elizabeth_cat()
 
 @bot.command(name = "elizabeth", pass_context=True, no_pm=True)
 async def send_elizabeth_message(ctx, ID:str, *, msg:str):
-    if ctx.message.channel.id is "343159135082250243":
-        all_channels = [ch for ch in bot.servers]
+    if ctx.message.channel.id == "343159135082250243":
+        all_channels = list()
+        for server in bot.servers:
+            all_channels += server.channels
         dest = discord.utils.get(all_channels, id=ID)
-        await bot.send_message(ctx.message.channel, "boo")
+        bot.cat.create_text(0, msg, random=True)
+        pic_path = os.path.abspath("elizabeth_the_third/tmp.png")
+        with open(pic_path, 'rb') as f:
+            await bot.send_file(dest, f)
+        bot.cat.delete_tmp()
+
 
 
 @bot.event

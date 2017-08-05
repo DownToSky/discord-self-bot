@@ -48,7 +48,7 @@ async def send_elizabeth_message(ctx, ID:str, *, msg:str):
         for server in bot.servers:
             all_channels += server.channels
         dest = discord.utils.get(all_channels, id=ID)
-        bot.cat.create_text(0, msg, random=True)
+        bot.cat.create_text(0, msg, rand=True)
         pic_path = os.path.abspath("elizabeth_the_third/tmp.png")
         with open(pic_path, 'rb') as f:
             await bot.send_file(dest, f)

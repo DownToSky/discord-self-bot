@@ -26,9 +26,9 @@ class elizabeth_cat():
 
 
 
-    def create_text(self, image_number, text, random = False):
+    def create_text(self, image_number, text, rand = False):
         pic = self.pictures(random.randint(0, len(self.pictures)))
-        if random == False:
+        if rand == False:
             pic = self.pictures[image_number % len(self.pictures)]
         image = Image.open(pic[1])
         draw = ImageDraw.Draw(image)

@@ -3,10 +3,12 @@ import json
 from PIL import ImageFont, ImageDraw, Image
 import random
 
+package_directory = os.path.dirname(os.path.abspath(__file__))
+
 class elizabeth_cat():
     def __init__(self):
-        self.folder_path = os.path.abspath("elizabeth_the_third/pictures/")
-        self.font_path = os.path.abspath("elizabeth_the_third/fonts/")
+        self.folder_path = os.path.join(package_directory,"pictures")
+        self.font_path = os.path.join(package_directory,"fonts")
 
         # making a list of all images paths
         self.pictures = list()
@@ -25,7 +27,8 @@ class elizabeth_cat():
 
 
 
-
+    # NOTE: Need to find a way to send the picture without saving items
+    #       in a tmp file
     def create_text(self, image_number, text, rand = False):
         pic = self.pictures[random.randint(0, len(self.pictures)-1)]
         if rand == False:
@@ -54,7 +57,7 @@ class elizabeth_cat():
         txt_colour = (77, 195, 255, 255)
         draw.text((starting_width, starting_height), text, font=font, fill = txt_colour)
 
-        image.save(os.path.abspath('elizabeth_the_third/tmp.png'))
+        image.save(os.path.join(package_directory,'tmp.png'))
 
 
 

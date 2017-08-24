@@ -66,7 +66,7 @@ async def on_ready():
 async def status_upkeep_task():
     await bot.wait_until_ready()
     while not bot.is_closed:
-        await bot.change_presence(game=discord.Game(name="dead"), status=discord.Status.busy)
+        await bot.change_presence(game=discord.Game(name="dead"), status=discord.Status.dnd)
         await asyncio.sleep(10)
 
 
